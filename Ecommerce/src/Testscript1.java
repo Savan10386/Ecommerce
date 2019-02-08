@@ -1,7 +1,9 @@
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -22,7 +24,7 @@ public class Testscript1 {
 		
 	
 		
-		File file = new File("C:/Users/savan/git/Ecommerce/Ecommerce/Library/chromedriver.exe");
+		File file = new File("C:/Users/Savan/git/Ecommerce/Library/chromedriver.exe");
 		System.setProperty("webdriver.chrome.driver", file.getAbsolutePath());
  		
 		ChromeDriver driver =  new ChromeDriver();
@@ -55,26 +57,35 @@ public class Testscript1 {
  		  	    
  		 driver.findElement(By.xpath("/html/body/div[11]/div[7]/div[4]/div/div[1]/div[2]/div[4]/div[3]/div/div[1]")).click();
  		 
- 	//	String windowHandle = driver.getWindowHandle();
- 		 
+ 	       		 
  		  Thread.sleep(5000);
+ 		  
+ 		  String parentWindow =driver.getWindowHandle();
  		 
- 		 driver.findElement(By.linkText("product-title")).click();
+ 		 driver.findElement(By.xpath("//*[@id='671474602807']/div[2]/a/picture/img")).click();
  		  		
  		
- 	/*	Thread.sleep(5000);
- 				
- 		Actions action= new Actions(driver);
- 		
- 		action.keyDown(Keys.CONTROL).sendKeys(Keys.TAB).build().perform();
- 		
- 		driver.findElement(By.xpath("/html/body/div[11]/div[7]/div[5]/div[3]/div[7]/section/div/div[3]/div[1]/a")).click();
- 		 		
- 				 		
- 		Thread.sleep(5000);
- 		
- 		
- 		driver.findElement(By.name("inputValEnter")).sendKeys("test");*/
+ 		    Set<String> NewWindow =driver.getWindowHandles();
+ 		    
+ 		   Thread.sleep(5000);
+ 		    
+ 		       Iterator<String> it= NewWindow.iterator();
+ 		                  
+ 		                  while(it.hasNext())
+ 		                  {
+ 		                	String childWindow= it.next(); 
+ 		                	
+ 		                	if(!parentWindow.equals(childWindow))
+ 		                	{
+ 		                		driver.switchTo().window(childWindow);
+ 		                		 
+ 		                		System.out.println(driver.switchTo().window(childWindow).getTitle());
+ 		                		 
+ 		                		driver.close();
+ 		                	}
+ 		                	
+ 		                	
+ 		                  }
  		
 		}
 		
