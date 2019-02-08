@@ -80,11 +80,15 @@ public class Testscript1 {
  		                		driver.switchTo().window(childWindow);
  		                		 
  		                		System.out.println(driver.switchTo().window(childWindow).getTitle());
+ 		                		
+ 		                		driver.findElement(By.xpath("//*[@id='pdp-buynow-rp']/div")).click();
+ 		                		
+ 		                		//Assertion need to apply
  		                		 
  		                		driver.close();
  		                	}
  		                	
- 		                	
+ 		                	driver.switchTo().window(parentWindow);	
  		                  }
  		
 		}
